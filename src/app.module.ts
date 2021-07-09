@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UrlController } from './url/url.controller';
 import { UrlModule } from './url/url.module';
 
 @Module({
@@ -14,7 +13,7 @@ import { UrlModule } from './url/url.module';
     }),
     UrlModule,
   ],
-  controllers: [AppController, UrlController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
