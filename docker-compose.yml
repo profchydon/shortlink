@@ -34,7 +34,10 @@ services:
     volumes:
       - my-db:/var/lib/mysql
     networks:
-    - webnet
+      - webnet
+
+volumes:
+    my-db:
 
 networks:
   webnet:
