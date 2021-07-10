@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   Column,
-  PrimaryColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class Url extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Param, Query, Redirect } from '@nestjs/common';
+import { version } from 'os';
+import { UrlService } from './url/url.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly urlService: UrlService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get(':urlCode')
+  @Redirect('', 302)
+  async handleRedirect(@Param('urlCode') urlCode: string) {
+    const { url } = await this.urlService.findByCode(urlCode);
+    if (url) {
+      return { url };
+    }
   }
 }
