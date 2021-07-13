@@ -22,7 +22,7 @@ export class Url extends BaseEntity {
   urlCode: string;
 
   @Column({ nullable: true })
-  last_visited: Date;
+  lastVisited: Date;
 
   @Column({ default: 0 })
   clickCount: number;
