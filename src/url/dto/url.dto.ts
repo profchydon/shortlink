@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UrlDto {
 
@@ -6,11 +6,11 @@ export class UrlDto {
   @IsString()
   readonly url: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   readonly encodedUrl: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   readonly urlCode: string;
 

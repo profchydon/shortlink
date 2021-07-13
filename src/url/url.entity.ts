@@ -12,17 +12,17 @@ export class Url extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   url: string;
 
   @Column()
   encodedUrl: string;
 
-  @Column()
+  @Column({ unique: true })
   urlCode: string;
 
   @Column({ nullable: true })
-  last_visited: string;
+  last_visited: Date;
 
   @Column({ default: 0 })
   clickCount: number;

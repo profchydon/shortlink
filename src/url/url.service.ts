@@ -1,11 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Validator } from 'class-validator';
 import { Repository } from 'typeorm';
 import { UrlDto } from './dto/url.dto';
 import { Url } from './url.entity';
 
 @Injectable()
 export class UrlService {
+
   constructor(
     @InjectRepository(Url)
     private readonly urlRepository: Repository<Url>,
