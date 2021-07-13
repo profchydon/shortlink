@@ -9,8 +9,16 @@ export class AppController {
   @Get(':urlCode')
   @Redirect('', 302)
   async handleRedirect(@Param('urlCode') urlCode: string) {
-    const { url } = await this.urlService.findByCode(urlCode);
-    if (url) {
+    let { id, clickCount, url } = await this.urlService.findByCode(urlCode);
+
+    const data = {
+      clickCount: clickCount + 1,
+      lastVisited: Date(),
+    };
+
+    const update = await this.urlService.update(id, data);
+
+    if (update) {
       return { url };
     }
   }

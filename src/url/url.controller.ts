@@ -38,8 +38,15 @@ export class UrlController {
 
   @Get('decode')
   async decode(@Body() body) {
-    const { url } = await this.decodeUrl(body.shortUrl);
-    return url;
+    const url: any = await this.decodeUrl(body.shortUrl);
+    const response = {
+      url: url.url,
+      encodedUrl: url.encodedUrl,
+      urlCode: url.urlCode,
+      clickCount: url.clickCount,
+      lastVisited: url.lastVisited,
+    };
+    return response;
   }
 
   async encodeUrl(url: string): Promise<any> {
