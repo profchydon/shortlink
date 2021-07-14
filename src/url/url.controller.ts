@@ -16,7 +16,7 @@ import { nanoid } from 'nanoid';
 import { UrlDto } from './dto/url.dto';
 import { Validator } from 'class-validator';
 import { Url } from './url.entity';
-import { GlobalExceptionFilter } from 'src/exception/http-exception.filter';
+import { GlobalExceptionFilter } from './../exception/http-exception.filter';
 
 @Controller('url')
 export class UrlController {

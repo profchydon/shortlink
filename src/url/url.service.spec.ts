@@ -10,6 +10,7 @@ const mockUrlRepository = <T = any>(): MockRepository<T> => ({
   findOne: jest.fn(),
   create: jest.fn(),
   save: jest.fn(),
+  update: jest.fn(),
 });
 
 describe('UrlService', () => {
@@ -38,13 +39,13 @@ describe('UrlService', () => {
       it('should return the url object', async () => {
 
         const createUrlData = {
-          url: 'http://indico.com',
+          url: 'https://indicina.co/',
           urlCode: 'yRM-Rn',
-          encodedUrl: 'http://localhost:5000/yRM-Rn',
+          encodedUrl: 'http://localhost:5000/BSCLwV',
         };
 
         const expectedUrl = {
-          url: 'http://indico.com',
+          url: 'https://indicina.co/',
           encodedUrl: 'http://localhost:5000/BSCLwV',
           urlCode: 'BSCLwV',
           lastVisited: null,
