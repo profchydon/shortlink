@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   NotFoundException,
+  Param,
   Post,
   UseFilters,
   UsePipes,
@@ -21,6 +22,7 @@ import { GlobalExceptionFilter } from './../exception/http-exception.filter';
 
 @Controller('url')
 export class UrlController {
+
   readonly validator = new Validator();
   constructor(private readonly urlService: UrlService) {}
 
@@ -30,16 +32,19 @@ export class UrlController {
   async encode(@Body() body: UrlDto) {
     try {
       const data = await this.encodeUrl(body.url);
-      const response = this.urlService.create(data);
+      const response = await this.urlService.create(data);
       return response;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  @Get('decode')
-  async decode(@Body() body) {
-    const url: any = await this.decodeUrl(body.shortUrl);
+  @Get('statistics/:urlPath')
+  async statistics(@Param() params: any) {
+    const url = await this.urlService.findByCode(params.urlPath);
+    if (!url) {
+      throw new NotFoundException(`URL Code: #${params.urlPath} not found`);
+    }
     const response = {
       url: url.url,
       encodedUrl: url.encodedUrl,
@@ -48,6 +53,12 @@ export class UrlController {
       lastVisited: url.lastVisited,
     };
     return response;
+  }
+
+  @Get('decode')
+  async decode(@Body() body) {
+    const { url } = await this.decodeUrl(body.shortUrl);
+    return url;
   }
 
   async encodeUrl(url: string): Promise<any> {
