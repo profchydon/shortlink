@@ -1,73 +1,55 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## ShortLink 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+ShortLink is a URL shortening service where you enter a URL such as https://indicina.co and it
+returns a short URL such as http://short.est/GeAi9K. Visiting the shortened URL should redirect
+the user to the long URL. Using the example above, visiting http://short.est/GeAi9K should
+redirect the user to https://indicina.co.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tools Needed
+- Docker
 
-## Description
+## Setup
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Clone repo
+- Change to the application's directory `$ cd shortlink`
+- RUN `yarn install`
+- Start the docker containers `$ docker-compose up -d --build`
+- Visit the URL [http://localhost:3000](http://localhost:3000) to confirm set up was successful.
 
-## Installation
 
-```bash
-$ npm install
-```
+## How to test
 
-## Running the app
+1. Complete all steps in the [SETUP](https://github.com/profchydon/shortlink#setup) section.
 
-```bash
-# development
-$ npm run start
+2. You can refer to the API documentation [here](https://documenter.getpostman.com/view/2916524/Tzm9katE)
 
-# watch mode
-$ npm run start:dev
+3. ***ENCODE A URL:***  Using postman, Make a HTTP POST request to `http://localhost:3000/url/encode` as below:
 
-# production mode
-$ npm run start:prod
-```
+    ```
+        POST /url/encode
+        // body
+        {
+            "url": "https://indicina.co/"
+        }
+    ```
 
-## Test
+    Take note of the shortUrl link and url code sent back as response. You will need it in the next section.
+     
+4. ***DECODE A URL:***  Make a HTTP GET request to `http://localhost:3000/url/decode` as below:
 
-```bash
-# unit tests
-$ npm run test
+    ```
+        POST /url/decode
+        // body
+        {
+            "shortUrl" : "http://localhost:3000/_oXG8X"
+        }
+    ```
 
-# e2e tests
-$ npm run test:e2e
+5. ***VIEW URL STATISTICS:***  Make a HTTP GET request to `http://localhost:3000/url/statistics/_oXG8X`:
 
-# test coverage
-$ npm run test:cov
-```
+** NOTE:** _oXG8X is the URL code return when URL was encode. Make use of what you have on your end.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+6. ***VISIT SHORT URL:***  Visit [http://localhost:3000/_oXG8X](http://localhost:3000/_oXG8X) 
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Perform step 5 to view latest statistics
