@@ -11,6 +11,6 @@ async function bootstrap() {
       transform: true, // Transform the dto fields to defined datatypes
     }),
   );
-  await app.listen(5000);
+  await app.listen(3000);
 }
 bootstrap();

@@ -4,8 +4,14 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=development
+RUN yarn install 
 
 COPY . .
 
-RUN npm run build
+RUN yarn run build
+
+RUN yarn run test
+
+EXPOSE 3000
+
+CMD [ "yarn", "run", "start"]

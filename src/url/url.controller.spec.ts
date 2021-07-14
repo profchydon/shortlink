@@ -29,7 +29,7 @@ describe('UrlController', () => {
 
     urlController = module.get<UrlController>(UrlController);
     spyService = module.get<UrlService>(UrlService);
-    process.env.baseURL = 'http://localhost:5000';
+    process.env.baseURL = 'http://localhost:3000';
   });
 
   it('should be defined', () => {

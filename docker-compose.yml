@@ -4,40 +4,39 @@ services:
 
   app:
     container_name: nestjs-app
+    restart: always
     build:
       context: .
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
-      - 9229:9229
     command: npm run start:dev
     env_file:
       - .env
-    networks:
-      - webnet
-    depends_on:
-      - db
-
-  db:
-    container_name: db
-    restart: always
-    image: mysql:5.7
-    environment:
-      MYSQL_DATABASE: ${DATABASE_NAME}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_USER: ${DATABASE_USERNAME}
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-      - 3306:3306
-    volumes:
-      - my-db:/var/lib/mysql
+      - "3000:3000"
+    expose:
+      - "3000"
+    depends_on:
+      - mysql_db
     networks:
-      - webnet
-
-volumes:
-    my-db:
+      - short_network
+  
+  mysql_db:
+    container_name: mysql_db
+    image: mysql:5.7
+    restart: always
+    env_file: ./.env
+    environment:
+      - MYSQL_DATABASE=shortlink
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+    - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d/:ro
+    networks:
+      - short_network
 
 networks:
-  webnet:
+  short_network:
