@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Post,
   UseFilters,
   UsePipes,
@@ -16,7 +17,7 @@ import { nanoid } from 'nanoid';
 import { UrlDto } from './dto/url.dto';
 import { Validator } from 'class-validator';
 import { Url } from './url.entity';
-import { GlobalExceptionFilter } from 'src/exception/http-exception.filter';
+import { GlobalExceptionFilter } from './../exception/http-exception.filter';
 
 @Controller('url')
 export class UrlController {
@@ -63,7 +64,10 @@ export class UrlController {
     if (!validUrl.isUri(shortUrl)) {
       throw new BadRequestException('Invalid URL');
     }
-    const url = this.urlService.find(shortUrl);
+    const url = this.urlService.findOne(shortUrl);
+    if (!url) {
+      throw new NotFoundException(`URL: #${shortUrl} not found`);
+    }
     return url;
   }
 }
