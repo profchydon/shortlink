@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Post,
   UseFilters,
   UsePipes,
@@ -64,6 +65,9 @@ export class UrlController {
       throw new BadRequestException('Invalid URL');
     }
     const url = this.urlService.findOne(shortUrl);
+    if (!url) {
+      throw new NotFoundException(`URL: #${shortUrl} not found`);
+    }
     return url;
   }
 }

@@ -23,9 +23,6 @@ export class UrlService {
         encodedUrl: shortUrl,
       },
     });
-    if (!url) {
-      throw new NotFoundException(`URL: #${shortUrl} not found`);
-    }
     return url;
   }
 
