@@ -47,7 +47,7 @@ redirect the user to https://indicina.co.
 
 5. ***VIEW URL STATISTICS:***  Make a HTTP GET request to `http://localhost:3000/url/statistics/_oXG8X`:
 
-** NOTE:** _oXG8X is the URL code return when URL was encode. Make use of what you have on your end.
+**NOTE:** _oXG8X is the URL code returned when the URL was encoded. Make use of what you have on your end.
 
 
 6. ***VISIT SHORT URL:***  Visit [http://localhost:3000/_oXG8X](http://localhost:3000/_oXG8X) 
