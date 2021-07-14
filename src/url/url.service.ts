@@ -17,7 +17,7 @@ export class UrlService {
     return this.urlRepository.save(url);
   }
 
-  async find(shortUrl: string): Promise<Url> {
+  async findOne(shortUrl: string): Promise<Url> {
     const url = await this.urlRepository.findOne({
       where: {
         encodedUrl: shortUrl,
@@ -44,7 +44,7 @@ export class UrlService {
   async update(id: string, urlDto: UpdateUrlDto): Promise<Url | null> {
     const url = await this.urlRepository.findOneOrFail(id);
     if (!url) {
-      throw new NotFoundException(`Coffee #${id} not found`);
+      throw new NotFoundException(`URL #${id} not found`);
     }
     await this.urlRepository.update(id, urlDto);
     return await this.urlRepository.findOne(id);

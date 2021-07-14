@@ -63,7 +63,7 @@ export class UrlController {
     if (!validUrl.isUri(shortUrl)) {
       throw new BadRequestException('Invalid URL');
     }
-    const url = this.urlService.find(shortUrl);
+    const url = this.urlService.findOne(shortUrl);
     return url;
   }
 }
